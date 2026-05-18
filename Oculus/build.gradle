@@ -117,6 +117,8 @@ shadowJar {
 
 	manifest {
 		attributes(
+			'FMLCorePlugin': 'net.coderbot.iris.OculusMixinTweaker',
+			'FMLCorePluginContainsFMLMod': 'true',
 			'ForceLoadAsMod': 'true'
 		)
 	}
@@ -129,7 +131,11 @@ tasks.named('reobfJar') {
 
 shadowJar.dependsOn jar
 tasks.named('reobfJar').configure { dependsOn shadowJar }
-tasks.assemble.dependsOn shadowJar
+// reobfJar (input = shadowJar) produces the SRG-mapped deployable jar in build/libs.
+// assemble/build must depend on it, otherwise the default build leaves an un-reobfuscated
+// (MCP-named) shadowJar in build/libs, which crashes at runtime with NoSuchMethodError on
+// the first vanilla call from Oculus's own non-mixin code (e.g. Iris.onEarlyInitialize).
+tasks.assemble.dependsOn shadowJar, 'reobfJar'
 /*
 
 loom {

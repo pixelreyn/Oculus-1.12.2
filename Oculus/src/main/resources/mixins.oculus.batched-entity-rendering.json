@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "oculus.mixins.refmap.json",
   "client": [
+    "BufferBuilderAccessor",
     "MixinBufferBuilder"
   ],
   "injectors": {
