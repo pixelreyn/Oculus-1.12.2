@@ -1,0 +1,88 @@
+package net.coderbot.iris.texture.format;
+
+import net.coderbot.iris.Iris;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.Properties;
+
+/**
+ * Loads texture format settings from optifine/texture.properties.
+ * Adapted for 1.12.2 resource system.
+ */
+public class TextureFormatLoader {
+    public static final ResourceLocation LOCATION = new ResourceLocation("optifine", "texture.properties");
+
+    private static TextureFormat format;
+
+    @Nullable
+    public static TextureFormat getFormat() {
+        return format;
+    }
+
+    public static void reload(IResourceManager resourceManager) {
+        TextureFormat newFormat = loadFormat(resourceManager);
+        boolean didFormatChange = !Objects.equals(format, newFormat);
+        format = newFormat;
+        if (didFormatChange) {
+            onFormatChange();
+        }
+    }
+
+    /**
+     * Reload using the default resource manager.
+     */
+    public static void reload() {
+        reload(Minecraft.getMinecraft().getResourceManager());
+    }
+
+    @Nullable
+    private static TextureFormat loadFormat(IResourceManager resourceManager) {
+        try {
+            IResource resource = resourceManager.getResource(LOCATION);
+            try (InputStream stream = resource.getInputStream()) {
+                Properties properties = new Properties();
+                properties.load(stream);
+                String format = properties.getProperty("format");
+                if (format != null && !format.isEmpty()) {
+                    String[] splitFormat = format.split("/");
+                    if (splitFormat.length > 0) {
+                        String name = splitFormat[0];
+                        TextureFormat.Factory factory = TextureFormatRegistry.INSTANCE.getFactory(name);
+                        if (factory != null) {
+                            String version;
+                            if (splitFormat.length > 1) {
+                                version = splitFormat[1];
+                            } else {
+                                version = null;
+                            }
+                            return factory.createFormat(name, version);
+                        } else {
+                            Iris.logger.warn("Invalid texture format '" + name + "' in file '" + LOCATION + "'");
+                        }
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // File not found is normal - optifine texture.properties is optional
+        } catch (IOException e) {
+            Iris.logger.error("Failed to load texture format from file '" + LOCATION + "'", e);
+        }
+        return null;
+    }
+
+    private static void onFormatChange() {
+        try {
+            Iris.reload();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "${mod_id}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "version": "${mod_version}",
+    "mcversion": "${minecraft_version}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["coderbot", "IMS212", "Justsnoopy30", "FoundationGames"],
+    "credits": "Backport to 1.12.2 based on Asek3/Oculus 1.16.5",
+    "logoFile": "oculus-logo.png",
+    "screenshots": [],
+    "dependencies": ["sodium"]
+  }
+]

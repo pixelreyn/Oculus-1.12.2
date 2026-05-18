@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.coderbot.batchedentityrendering.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "oculus.mixins.refmap.json",
+  "client": [
+    "MixinBufferBuilder"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

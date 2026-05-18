@@ -1,0 +1,34 @@
+package net.coderbot.iris.texture.pbr;
+
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import org.jetbrains.annotations.Nullable;
+
+public class PBRSpriteHolder {
+    protected TextureAtlasSprite normalSprite;
+    protected TextureAtlasSprite specularSprite;
+
+    @Nullable
+    public TextureAtlasSprite getNormalSprite() {
+        return normalSprite;
+    }
+
+    public void setNormalSprite(TextureAtlasSprite sprite) {
+        normalSprite = sprite;
+    }
+
+    @Nullable
+    public TextureAtlasSprite getSpecularSprite() {
+        return specularSprite;
+    }
+
+    public void setSpecularSprite(TextureAtlasSprite sprite) {
+        specularSprite = sprite;
+    }
+
+    public void close() {
+        // In 1.12.2, TextureAtlasSprite doesn't have a close() method
+        // Resources are managed by the atlas, so we just clear our references
+        normalSprite = null;
+        specularSprite = null;
+    }
+}

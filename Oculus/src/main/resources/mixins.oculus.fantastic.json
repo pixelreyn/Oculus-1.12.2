@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.coderbot.iris.mixin.fantastic",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "oculus.mixins.refmap.json",
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
