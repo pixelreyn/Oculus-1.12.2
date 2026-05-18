@@ -1,8 +1,8 @@
-<!--
-RLCraft (https://www.curseforge.com/minecraft/modpacks/rlcraft), with the Oculus/Sodium mod
-added and the following disabled: RenderLib, Phosphor Lighting Engine, Particle Culling,
+# RLCraft + Oculus/Sodium
+
+[RLCraft](https://www.curseforge.com/minecraft/modpacks/rlcraft) with the Oculus/Sodium mod
+added, and the following disabled: RenderLib, Phosphor Lighting Engine, Particle Culling,
 EntityCulling, Block Overlay Fix, Better Foliage. Works otherwise.
--->
 
 - [AI Reducer](https://www.curseforge.com/projects/367831) [1\.12\.2\-0\.3\.0] by Charles445 (AIReducer\-1\.12\.2\-0\.3\.0\.jar)
 - [Advanced Fishing](https://www.curseforge.com/projects/303541) [1\.3\.3] by NightKosh (Advanced\-Fishing\-1\.12\.2\-1\.3\.3\.jar)
